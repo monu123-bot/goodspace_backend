@@ -2,7 +2,7 @@ const mongoose   = require('mongoose')
 const MessageSchema = mongoose.Schema({
     
     user:{
-        type : mongoose.Schema.Types.ObjectId,
+        type : mongoose.Types.ObjectId,
         ref : "users",
         required : true
     },
@@ -10,6 +10,9 @@ const MessageSchema = mongoose.Schema({
     type:{
         type:String,
         enum:["sent","recieved"]
+    },
+    message:{
+        type:String
     },
     
     
