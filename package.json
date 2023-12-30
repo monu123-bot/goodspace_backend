@@ -1,0 +1,11 @@
+{
+  "name": "goodspace_task_backend",
+  "version": "1.0.0",
+  "description": "Backend for ai-interview",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "monu dixit",
+  "license": "ISC"
+}
