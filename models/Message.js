@@ -1,4 +1,5 @@
 const mongoose   = require('mongoose')
+const { bool, boolean } = require('yup')
 const MessageSchema = mongoose.Schema({
     
     user:{
@@ -8,8 +9,9 @@ const MessageSchema = mongoose.Schema({
     },
     
     type:{
-        type:String,
-        enum:["sent","recieved"]
+        type:Boolean
+
+        
     },
     message:{
         type:String

@@ -1,5 +1,5 @@
 const express = require('express');
-const { login } = require('../controllers/userLogin');
+const { login } = require('../controllers/user');
 const userRouter = express.Router();
 const bodyParser = require('body-parser');
 // const { Auth } = require('../middleware/auth');

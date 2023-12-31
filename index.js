@@ -60,19 +60,21 @@ const openai = new OpenAI({
 		  console.log(chatCompletion.choices[0].message['content'])
           return chatCompletion.choices[0].message['content']
 	} catch (error) {
-		
-        return "Limit excedded"
+		    // console.log(error)
+        return "Your free limit exceeded"
 	}
   
 
 }
 
 const userRouter = require('./routes/user')
+const chatRouter = require('./routes/chat')
+
 const Auth = require('./middlewares/auth')
 // MIDDLEWARE FOR ROUTES
 app.use('/api/user', userRouter);
 // app.use('/api/user', require('./routes/user'));
-// app.use('/api/chat', require('./routes/chat'));
+app.use('/api/chat', chatRouter);
 
 // THIS MIDDLEWARE WILL TAKE CARE OF ALL THE ERROS
 // app.use(errorHandler);
@@ -118,24 +120,31 @@ io.on('connection', async (socket) => {
         // Listen for messages from the client
         socket.on('messageFromClient', async (message) => {
           console.log('Message from client:', message);
-      
+
+          if (message===''){
+            io.emit('messageFromServer', 'Please speak or type something...');
+          }
+          else{
+
           // Sending a message back to the client
          
           // 
           const resp = await main(message)
           console.log("resp from gpt ",resp)
     
-          const saveResp1 = await saveMessageToDatabase(user,'sent',message)
-          const saveResp2 = await saveMessageToDatabase(user,'recieved',resp)
+          const saveResp1 = await saveMessageToDatabase(user,true,message)
+          const saveResp2 = await saveMessageToDatabase(user,false,resp)
 
           // const saveResp = true
           //
           if (saveResp1 && saveResp2){
-            io.emit('messageFromServer', 'Message received on the server: ' + resp);
+            io.emit('messageFromServer',{token, resp});
           }
           else{
             io.emit('messageFromServer', 'Message received on the server: ' + "chat can not be saved to database");
           }
+          }
+      
           
         }
         
