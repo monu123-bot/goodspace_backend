@@ -9,6 +9,10 @@ const Message = mongoose.model('messages');
 const users = require('./models/User')
 const Users = mongoose.model('users');
 const jwt = require('jsonwebtoken')
+// const { BardAPI } = require('bard-api-node');
+
+// let myBard = new Bard(process.env.BARD_API_KEY);
+// const bard = new Bard(process.env.BARD_API_KEY);
 // const errorHandler = require("./middleware/error");
 
 const app = express();
@@ -50,20 +54,20 @@ const openai = new OpenAI({
   }
 
 
-  const  main = async(message)=> {
-
-	try {
-		const chatCompletion = await openai.chat.completions.create({
-			messages: [{ role: 'user', content: message }],
-			model: 'gpt-3.5-turbo',
-		  });
-		  console.log(chatCompletion.choices[0].message['content'])
-          return chatCompletion.choices[0].message['content']
-	} catch (error) {
-		    // console.log(error)
-        return "Your free limit exceeded"
-	}
-  
+  const  main =async (message)=> {
+   
+   
+    try {
+      const chatCompletion = await openai.chat.completions.create({
+        messages: [{ role: 'user', content: message }],
+        model: 'gpt-3.5-turbo',
+        });
+        console.log(chatCompletion.choices[0].message['content'])
+            return chatCompletion.choices[0].message['content']
+    } catch (error) {
+          console.log(error)
+          return "API limit excedded"
+    }
 
 }
 
