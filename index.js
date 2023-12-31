@@ -82,7 +82,9 @@ app.use('/api/chat', chatRouter);
 
 // THIS MIDDLEWARE WILL TAKE CARE OF ALL THE ERROS
 // app.use(errorHandler);
-
+app.get('/',(req,res)=>{
+  return res.status(200).json({msg:"live"})
+})
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () => {
