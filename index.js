@@ -9,6 +9,7 @@ const Message = mongoose.model('messages');
 const users = require('./models/User')
 const Users = mongoose.model('users');
 const jwt = require('jsonwebtoken')
+
 // const { BardAPI } = require('bard-api-node');
 
 // let myBard = new Bard(process.env.BARD_API_KEY);
@@ -94,7 +95,7 @@ const server = app.listen(PORT, () => {
 const io = require('socket.io')(server,{
     pingTimeout : 120000,
     cors : {
-        origin : "http://localhost:5000"
+        origin : "https://goodspace-backend.onrender.com"
     }
 });
 
